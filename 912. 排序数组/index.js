@@ -5,7 +5,8 @@
 var sortArray = function (arr) {
   // bubbleSort(arr, 0, arr.length);
   // mergeSort(arr, 0, arr.length);
-  selectSort(arr, 0, arr.length);
+  // selectionSort(arr, 0, arr.length);
+  insertionSort(arr, 0, arr.length);
   console.log(arr);
 
   return arr;
@@ -54,8 +55,42 @@ const merge = (arr, lo, mi, hi) => {
 };
 
 // 选择排序
-const selectSort = (arr, lo, hi) => {
-
+const selectionSort = (arr, lo, hi) => {
+  let n = hi - lo;
+  while (1 < n) {
+    let max = selectMax(arr, lo, n);
+    swap(arr, max, n - 1);
+    arr.push()
+    n--;
+  }
 };
 
-sortArray([3, 2, 1])
+const selectMax = (arr, lo, n) => {
+  let max = lo;
+  for (let i = lo + 1; i < n; i++) {
+    if (arr[i] >= arr[max]) {
+      max = i;
+    }
+  }
+  return max;
+};
+
+// 插入排序
+const insertionSort = (arr, lo, hi) => {
+  // let sortedHi = lo;
+  for (let i = lo; i < hi; i++) {
+    arr.splice(insertionPosition(arr, lo, i) + 1, 0, arr[i]);
+    arr.splice(i + 1, 1);
+  }
+};
+
+const insertionPosition = (arr, lo, sortedHi) => {
+  let position = lo;
+  let sortWait = arr[sortedHi];
+  while (lo < sortedHi--) {
+    if (arr[sortedHi] <= sortWait) position = sortedHi;
+  }
+  return position;
+};
+
+sortArray([5, 2, 3, 1]);
