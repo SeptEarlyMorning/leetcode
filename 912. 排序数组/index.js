@@ -14,7 +14,9 @@ var sortArray = function (arr) {
 
 // 交换数组中的两个数据
 const swap = (arr, a, b) => {
-  [arr[a], arr[b]] = [arr[b], arr[a]];
+  let tmp = arr[a];
+  arr[a] = arr[b];
+  arr[b] = tmp;
 }
 
 // 冒泡排序
@@ -77,20 +79,11 @@ const selectMax = (arr, lo, n) => {
 
 // 插入排序
 const insertionSort = (arr, lo, hi) => {
-  // let sortedHi = lo;
-  for (let i = lo; i < hi; i++) {
-    arr.splice(insertionPosition(arr, lo, i) + 1, 0, arr[i]);
-    arr.splice(i + 1, 1);
+  for (let i = lo + 1; i < hi; i++) {
+    for (let j = i - 1; j >= lo && arr[j] > arr[j + 1]; j--) {
+      swap(arr, j, j + 1);
+    }
   }
 };
 
-const insertionPosition = (arr, lo, sortedHi) => {
-  let position = lo;
-  let sortWait = arr[sortedHi];
-  while (lo < sortedHi--) {
-    if (arr[sortedHi] <= sortWait) position = sortedHi;
-  }
-  return position;
-};
-
-sortArray([5, 2, 3, 1]);
+sortArray([5, 1, 1, 2, 0, 0]);
