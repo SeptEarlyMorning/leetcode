@@ -3,11 +3,12 @@
  * @return {number}
  */
 var findRepeatNumber = function (nums) {
-  let s = new Set();
-  for (var i in nums) {
-    var curLenth = s.size;
-    s.add(nums[i]);
-    if (s.size == curLenth)
-      return nums[i];
+  for (let i = 0; i < nums.length; i++) {
+    while (nums[i] !== i) {
+      if (nums[i] === nums[nums[i]]) return nums[i];
+      const item = nums[i];
+      [nums[i], nums[item]] = [nums[item], item];
+    }
   }
+  return -1;
 };
