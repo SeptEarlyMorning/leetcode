@@ -19,21 +19,40 @@ var longestPalindrome = function (s) {
   // return '';
 
   /* 动态规划 */
-  const dp = Array.from({ length: len }, () => new Array(len).fill(true));
+  // const dp = Array.from({ length: len }, () => new Array(len).fill(true));
+  // let longestPalindromeStr = s.charAt(0);
+
+  // for (let i = 1; i < len; ++i) {
+  //   for (let j = 0; j < i; ++j) {
+  //     if (dp[i - 1][j + 1]) {
+  //       if (s.charAt(j) === s.charAt(i)) {
+  //         if (i - j > longestPalindromeStr.length - 1) {
+  //           longestPalindromeStr = s.slice(j, i + 1);
+  //         }
+  //       } else {
+  //         dp[i][j] = false;
+  //       }
+  //     } else {
+  //       dp[i][j] = false;
+  //     }
+  //   }
+  // }
+
+  // return longestPalindromeStr;
+
+  /* 动态规划 + 滚动数组 */
+  const dp = new Array(len).fill(true);
   let longestPalindromeStr = s.charAt(0);
 
   for (let i = 1; i < len; ++i) {
     for (let j = 0; j < i; ++j) {
-      if (dp[i - 1][j + 1]) {
-        if (s.charAt(j) === s.charAt(i)) {
-          if (i - j > longestPalindromeStr.length - 1) {
-            longestPalindromeStr = s.slice(j, i + 1);
-          }
-        } else {
-          dp[i][j] = false;
+      if (dp[j + 1] && s.charAt(j) === s.charAt(i)) {
+        dp[j] = true;
+        if (i - j > longestPalindromeStr.length - 1) {
+          longestPalindromeStr = s.slice(j, i + 1);
         }
       } else {
-        dp[i][j] = false;
+        dp[j] = false;
       }
     }
   }
