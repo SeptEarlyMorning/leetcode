@@ -6,7 +6,8 @@ var sortArray = function (arr) {
   // bubbleSort(arr, 0, arr.length);
   // mergeSort(arr, 0, arr.length);
   // selectionSort(arr, 0, arr.length);
-  insertionSort(arr, 0, arr.length);
+  // insertionSort(arr, 0, arr.length);
+  quickSort(arr, 0, arr.length - 1);
   console.log(arr);
 
   return arr;
@@ -86,4 +87,25 @@ const insertionSort = (arr, lo, hi) => {
   }
 };
 
-sortArray([5, 1, 1, 2, 0, 0]);
+
+// 快速排序
+const quickSort = (arr, left, right) => {
+  if (left >= right) return;
+
+  const key = arr[left], start = left, end = right;
+  while (left < right) {
+    while (left < right && arr[right] >= key) {
+      --right;
+    }
+    while (left < right && arr[left] <= key) {
+      ++left;
+    }
+    [arr[left], arr[right]] = [arr[right], arr[left]];
+  }
+  [arr[start], arr[left]] = [arr[left], arr[start]];
+
+  quickSort(arr, start, left - 1);
+  quickSort(arr, left + 1, end);
+};
+
+sortArray([5, 1, 1, 2, 0, 0, -5]);
