@@ -3,16 +3,20 @@
  * @return {number}
  */
 var reverse = function (x) {
-  let ord = Math.abs(x);
-  let now = 0;
-  while (ord > 0) {
-    now = now * 10 + ord % 10;
-    ord = Math.floor(ord / 10);
+  /* 防止溢出 */
+  const MAX = Math.pow(2, 31) - 1;
+  let res = 0;
+
+  while (x != 0) {
+    res = res * 10 + x % 10;
+    x = ~~(x / 10);
+    if (res >= ~~(MAX / 10) || res <= ~~((~MAX) / 10)) {
+      if (x > MAX % 10 || x < ~MAX % 10) return 0;
+      if (res > ~~(MAX / 10) || res < ~~((~MAX) / 10)) {
+        if (x > 0 || x < 0) return 0;
+      }
+    }
   }
 
-  if (x < 0) {
-    return now <= Math.pow(2, 31) ? -now : 0;
-  } else {
-    return now < Math.pow(2, 31) ? now : 0;
-  }
+  return res;
 };
